@@ -2,7 +2,7 @@
   <img src="victory-check-mobile/icons/icon-192.png" alt="Visural Audit" width="72" height="72" />
 </p>
 
-<h1 align="center">Visural Audit</h1>
+<h1 align="center">Audit</h1>
 
 <p align="center">
   <strong>Фиксация нарушений охраны труда на стройплощадке</strong><br/>
