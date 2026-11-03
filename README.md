@@ -24,26 +24,31 @@
 
 ## Как это работает на объекте
 
-1. **Нашли нарушение** — инспектор открывает мобильное приложение и жмёт «+».
+1. **Нашли нарушение** — инспектор открывает приложение и жмёт «+».
 2. **Мастер из 8 шагов** — объект → организация → категория → **фото** → описание → нормы → критичность → подтверждение.
-3. **Создаётся акт** — нарушение уходит в журнал, подрядчику уходит уведомление (push / email / Telegram — по настройкам).
-4. **Подрядчик отвечает** — в карточке нарушения пишет отчёт об устранении и прикладывает фото «как стало».
-5. **Закрытие** — статус меняют на «устранено» (инспектор или админ), история и комментарии остаются в карточке.
+3. **Создаётся акт** — нарушение уходит в журнал, подрядчику уходит уведомление.
+4. **Подрядчик отвечает** — пишет отчёт об устранении и прикладывает фото «как стало».
+5. **Закрытие** — статус «устранено», история остаётся в карточке.
 
-<p align="center"><strong>1. Создание акта</strong><br/>
-<img src="docs/screenshots/12-mobile-create.png" alt="Создание акта" width="260" /></p>
+<p align="center">
+  <img src="docs/screenshots/frame-12-mobile-create.png" alt="Создание акта" width="280" />
+</p>
 
-<p align="center"><strong>2. Фото на объекте</strong><br/>
-<img src="docs/screenshots/06-mobile-photo.png" alt="Фото на объекте" width="260" /></p>
+<p align="center">
+  <img src="docs/screenshots/frame-06-mobile-photo.png" alt="Фото на объекте" width="280" />
+</p>
 
-<p align="center"><strong>3. Подтверждение и отправка</strong><br/>
-<img src="docs/screenshots/07-mobile-confirm.png" alt="Подтверждение" width="260" /></p>
+<p align="center">
+  <img src="docs/screenshots/frame-07-mobile-confirm.png" alt="Подтверждение" width="280" />
+</p>
 
-<p align="center"><strong>4. Карточка нарушения</strong><br/>
-<img src="docs/screenshots/08-mobile-detail.png" alt="Карточка" width="260" /></p>
+<p align="center">
+  <img src="docs/screenshots/frame-08-mobile-detail.png" alt="Карточка нарушения" width="280" />
+</p>
 
-<p align="center"><strong>5. Отчёт об устранении</strong><br/>
-<img src="docs/screenshots/10-mobile-report.png" alt="Отчёт об устранении" width="260" /></p>
+<p align="center">
+  <img src="docs/screenshots/frame-10-mobile-report.png" alt="Отчёт об устранении" width="280" />
+</p>
 
 ## Кто что может
 
@@ -57,28 +62,38 @@
 - подтверждение новых регистраций;
 - рассылка актов и уведомлений.
 
-| Вход в админку | Аналитика |
-|:--------------:|:---------:|
-| ![Вход](docs/screenshots/01-admin-login.png) | ![Аналитика](docs/screenshots/02-admin-dashboard.png) |
+<p align="center">
+  <img src="docs/screenshots/01-admin-login.png" alt="Вход в админку" width="420" />
+</p>
 
-| Журнал нарушений | Пользователи и роли |
-|:----------------:|:-------------------:|
-| ![Нарушения](docs/screenshots/03-admin-violations.png) | ![Пользователи](docs/screenshots/13-admin-users.png) |
+<p align="center">
+  <img src="docs/screenshots/02-admin-dashboard.png" alt="Аналитика админки" width="720" />
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/03-admin-violations.png" alt="Журнал нарушений" width="720" />
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/13-admin-users.png" alt="Пользователи" width="720" />
+</p>
 
 ### Инспектор / аудитор (`inspector@demo.local`)
 
-Обычный «человек на площадке» — работает в основном с телефона:
+Обычный «человек на площадке» — работает с телефона:
 
 - лента нарушений по своим объектам;
 - создание акта с фото (камера или галерея, до 10 снимков);
 - комментарии, смена статуса, отправка акта подрядчику;
 - просмотр аналитики по доступным объектам.
 
-<p align="center"><strong>Лента нарушений</strong><br/>
-<img src="docs/screenshots/05-mobile-list.png" alt="Лента нарушений" width="260" /></p>
+<p align="center">
+  <img src="docs/screenshots/frame-05-mobile-list.png" alt="Лента нарушений" width="280" />
+</p>
 
-<p align="center"><strong>Аналитика</strong><br/>
-<img src="docs/screenshots/11-mobile-analytics.png" alt="Аналитика" width="260" /></p>
+<p align="center">
+  <img src="docs/screenshots/frame-11-mobile-analytics.png" alt="Аналитика" width="280" />
+</p>
 
 ### Подрядчик (`contractor@demo.local`)
 
