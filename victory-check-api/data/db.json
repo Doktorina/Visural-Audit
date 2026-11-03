@@ -30,7 +30,7 @@
         "obj-2"
       ],
       "role": "admin",
-      "passwordHash": "$argon2id$v=19$m=19456,t=3,p=1$4NBMkIB2GFkWkxK78oloRw$Iv9wOtAu6co5SMwdyq7dRG1sJoBHhPoiIU0gEt4lxmg",
+      "passwordHash": "$argon2id$v=19$m=19456,t=3,p=1$hFNqQ0hc4FwJoLmXYTk9Gg$jN0W70nzOiYk2MJZUxBu1hzhM7Q1obGDU/ljflnJz7M",
       "company": "ООО «Демо Строй»",
       "notifyEmail": "admin@demo.local",
       "email": "admin@demo.local",
@@ -50,6 +50,22 @@
       "company": "ООО «Демо Строй»",
       "notifyEmail": "inspector@demo.local",
       "email": "inspector@demo.local",
+      "status": "active",
+      "tutorialCompleted": true
+    },
+    {
+      "id": "demo-contractor-001",
+      "email": "contractor@demo.local",
+      "role": "contractor",
+      "firstName": "Алексей",
+      "lastName": "Исполнителев",
+      "notifyEmail": "contractor@demo.local",
+      "passwordHash": "$argon2id$v=19$m=19456,t=3,p=1$bXAEpIN9nCmpuw09WOxG3g$Kk0Biq2d+Dfq5e56u0uxPivkToLfWCAzdaKmdj4bI0g",
+      "company": "ООО «Подряд Демо»",
+      "contractorId": "c-1",
+      "objectIds": [
+        "obj-1"
+      ],
       "status": "active"
     }
   ],
@@ -74,6 +90,11 @@
           "by": "Иван Проверкин",
           "text": "Нарушение создано",
           "at": "2026-11-01T10:00:00.000Z"
+        },
+        {
+          "at": "2026-11-03T12:00:00.000Z",
+          "text": "Подрядчику отправлено предписание / уведомление",
+          "by": "Система"
         }
       ],
       "responsible": "Петров П.П.",
@@ -152,23 +173,7 @@
       "reportMedia": []
     }
   ],
-  "sessions": [
-    {
-      "token": "dc0528356485f256b3917f7784ae5724166d25675a2f3691",
-      "userId": "demo-admin-001",
-      "expiresAt": 1796317974699
-    },
-    {
-      "token": "0770f8d9f9b70f5c03f524c8a26d927a05bbc3e5616c76cd",
-      "userId": "demo-admin-001",
-      "expiresAt": 1796318009484
-    },
-    {
-      "token": "415d6ae4255d85ab869de4ad5d6af8ba8a25891a3ce2bc9e",
-      "userId": "demo-admin-001",
-      "expiresAt": 1796318350739
-    }
-  ],
+  "sessions": [],
   "registrationPending": {},
   "objects": [
     {
