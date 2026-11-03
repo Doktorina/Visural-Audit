@@ -30,17 +30,20 @@
 4. **Подрядчик отвечает** — в карточке нарушения пишет отчёт об устранении и прикладывает фото «как стало».
 5. **Закрытие** — статус меняют на «устранено» (инспектор или админ), история и комментарии остаются в карточке.
 
-| Создание акта | Фото на объекте |
-|:-------------:|:---------------:|
-| ![Создание](docs/screenshots/12-mobile-create.png) | ![Фото](docs/screenshots/06-mobile-photo.png) |
-
-| Подтверждение и отправка | Карточка с фиксацией |
-|:------------------------:|:--------------------:|
-| ![Подтверждение](docs/screenshots/07-mobile-confirm.png) | ![Карточка](docs/screenshots/08-mobile-detail.png) |
-
-| Действия по акту | Ответ: нарушение устранено |
-|:----------------:|:--------------------------:|
-| ![Действия](docs/screenshots/09-mobile-actions.png) | ![Отчёт](docs/screenshots/10-mobile-report.png) |
+<p align="center">
+  <img src="docs/screenshots/12-mobile-create.png" alt="Создание акта" width="220" />
+  &nbsp;
+  <img src="docs/screenshots/06-mobile-photo.png" alt="Фото на объекте" width="220" />
+  &nbsp;
+  <img src="docs/screenshots/07-mobile-confirm.png" alt="Подтверждение и отправка" width="220" />
+</p>
+<p align="center">
+  <img src="docs/screenshots/08-mobile-detail.png" alt="Карточка с фиксацией" width="220" />
+  &nbsp;
+  <img src="docs/screenshots/09-mobile-actions.png" alt="Действия по акту" width="220" />
+  &nbsp;
+  <img src="docs/screenshots/10-mobile-report.png" alt="Отчёт об устранении" width="220" />
+</p>
 
 ## Кто что может
 
@@ -71,9 +74,11 @@
 - комментарии, смена статуса, отправка акта подрядчику;
 - просмотр аналитики по доступным объектам.
 
-| Лента нарушений | Аналитика в телефоне |
-|:---------------:|:--------------------:|
-| ![Лента](docs/screenshots/05-mobile-list.png) | ![Аналитика](docs/screenshots/11-mobile-analytics.png) |
+<p align="center">
+  <img src="docs/screenshots/05-mobile-list.png" alt="Лента нарушений" width="220" />
+  &nbsp;
+  <img src="docs/screenshots/11-mobile-analytics.png" alt="Аналитика в телефоне" width="220" />
+</p>
 
 ### Подрядчик (`contractor@demo.local`)
 

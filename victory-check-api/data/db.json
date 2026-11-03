@@ -173,13 +173,7 @@
       "reportMedia": []
     }
   ],
-  "sessions": [
-    {
-      "token": "ebd4dc6838a0a4b64dfbaa1c8f263b8f02f1e3b2c49ccfdc",
-      "userId": "demo-insp-001",
-      "expiresAt": 1796321702730
-    }
-  ],
+  "sessions": [],
   "registrationPending": {},
   "objects": [
     {
