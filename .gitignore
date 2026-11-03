@@ -1,0 +1,13 @@
+node_modules/
+**/node_modules/
+.env
+**/.env
+*.log
+.DS_Store
+Thumbs.db
+victory-check-api/data/uploads/
+victory-check-api/data/outbox/
+victory-check-api/data/sessions*.json
+**/*.apk
+.idea/
+.vscode/

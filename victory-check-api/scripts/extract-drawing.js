@@ -1,0 +1,11 @@
+const fs = require('fs');
+const path = require('path');
+const PizZip = require('pizzip');
+const tpl = path.join(__dirname, '..', 'templates', 'akt-predpisanie.docx');
+const zip = new PizZip(fs.readFileSync(tpl, 'binary'));
+const xml = zip.file('word/document.xml').asText();
+const from = xml.indexOf('<w:drawing>', xml.indexOf('rId8') - 200);
+const to = xml.indexOf('</w:drawing>', from) + '</w:drawing>'.length;
+const drawing = xml.slice(from, to);
+fs.writeFileSync(path.join(__dirname, 'drawing-snippet.xml'), drawing);
+console.log('len', drawing.length);

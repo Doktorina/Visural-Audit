@@ -1,0 +1,13 @@
+{
+  "name": "victory-check-api",
+  "private": true,
+  "dependencies": {
+    "argon2": "^0.41.1",
+    "bcryptjs": "^2.4.3",
+    "pg": "^8.13.1",
+    "pizzip": "^3.2.0"
+  },
+  "optionalDependencies": {
+    "nodemailer": "^6.9.16"
+  }
+}

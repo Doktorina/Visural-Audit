@@ -1,0 +1,10 @@
+const fs = require('fs');
+const path = require('path');
+const PizZip = require('pizzip');
+const tpl = path.join(__dirname, '..', 'templates', 'akt-predpisanie.docx');
+const zip = new PizZip(fs.readFileSync(tpl, 'binary'));
+const xml = zip.file('word/document.xml').asText();
+const idx = xml.indexOf('r:embed="rId8"');
+const from = xml.lastIndexOf('<w:drawing>', idx);
+const to = xml.indexOf('</w:drawing>', idx) + '</w:drawing>'.length;
+console.log(xml.slice(from, to));

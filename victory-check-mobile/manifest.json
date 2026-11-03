@@ -1,0 +1,52 @@
+{
+  "name": "Visural Audit v1.2.131",
+  "short_name": "VA 1.2.131",
+  "description": "Фиксация нарушений охраны труда на строительных объектах",
+  "id": "https://audit.visural.ru/mobile/",
+  "start_url": "https://audit.visural.ru/mobile/",
+  "scope": "https://audit.visural.ru/mobile/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0f1a15",
+  "theme_color": "#0e7c5a",
+  "lang": "ru",
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-120.png",
+      "sizes": "120x120",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-180.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

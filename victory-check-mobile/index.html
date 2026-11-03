@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <script>
+    (function () {
+      var h = location.hostname || '';
+      if (
+        location.protocol === 'http:' &&
+        h &&
+        h !== 'localhost' &&
+        h !== '127.0.0.1'
+      ) {
+        location.replace(
+          'https://' + h + location.pathname + location.search + location.hash
+        );
+      }
+    })();
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0f1a15">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function () {
+      var k = 'vc_theme', s;
+      try { s = localStorage.getItem(k); } catch (e) {}
+      var t = s === 'light' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Visural Audit v1.2.131">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="description" content="Visural Audit — фиксация нарушений охраны труда">
+  <title>Visural Audit v1.2.131</title>
+  <script>
+    (function () {
+      var href = location.href || '';
+      var isApkAsset = /android_asset/i.test(href);
+      if (location.protocol === 'file:' && !isApkAsset) {
+        location.replace('https://audit.visural.ru/mobile/');
+        throw new Error('vc-file-redirect');
+      }
+      if (isApkAsset) document.documentElement.classList.add('vc-installed-app');
+      var h = location.hostname || '';
+      if (h !== 'localhost' && h !== '127.0.0.1') return;
+      var ios = /iPad|iPhone|iPod/i.test(navigator.userAgent) ||
+        (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+      var standalone = window.navigator.standalone || matchMedia('(display-mode: standalone)').matches;
+      if (!ios && !standalone) return;
+      document.write(
+        '<div style="font-family:system-ui;padding:24px;max-width:400px;margin:0 auto;background:#0f1419;color:#f0f4f8;min-height:100vh">' +
+        '<h1 style="color:#e85d04">Неверный адрес</h1>' +
+        '<p style="line-height:1.5;color:#8b9cb3">Откройте приложение с сервера, не с localhost.</p>' +
+        '<p style="color:#22c55e;margin-top:16px"><a href="https://audit.visural.ru/mobile/" style="color:#e85d04">https://audit.visural.ru/mobile/</a></p></div>'
+      );
+      throw new Error('vc-localhost-block');
+    })();
+  </script>
+  <script>
+    window.VC_FLUTTER_APP=/flutter_assets/i.test(location.href||'');
+    window.VC_ANDROID_APP=window.VC_FLUTTER_APP||/android_asset/i.test(location.href||'');
+    if (window.VC_ANDROID_APP) document.documentElement.classList.add('vc-installed-app');
+  </script>
+  <style>
+    html, body { height: 100%; margin: 0; background: #0f1a15; color: #ecf5f1; font-family: Manrope, system-ui, sans-serif; }
+    .screen { display: none !important; flex-direction: column; flex: 1; min-height: 0; }
+    .screen.active { display: flex !important; }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="icon" href="icons/icon-120.png" sizes="120x120" type="image/png">
+  <link rel="apple-touch-icon" href="icons/icon-180.png">
+  <link rel="stylesheet" href="css/app.css?v=72">
+</head>
+<body>
+  <div id="app">
+    <div id="toast" class="toast" role="status"></div>
+    <div id="app-chrome-menu" class="app-chrome-menu hidden">
+      <button type="button" id="btn-app-menu" class="btn-kebab" aria-label="Меню" aria-haspopup="true">⋮</button>
+      <div id="app-menu-dropdown" class="app-menu-dropdown hidden" role="menu">
+        <button type="button" id="menu-training" role="menuitem">Пройти обучение</button>
+        <button type="button" id="menu-logout" role="menuitem">Выйти</button>
+      </div>
+    </div>
+
+    <!-- Экран 1: Авторизация -->
+    <section id="screen-login" class="screen active">
+      <div class="scroll-body scroll-body-auth">
+        <div class="login-logo">
+          <img src="icons/icon-192.png?v=44" alt="" class="login-logo-icon" width="72" height="72">
+          <h2>Visural Audit</h2>
+          <p>Охрана труда на стройплощадке</p>
+        </div>
+        <form id="login-form" action="#" method="post" novalidate>
+          <input type="hidden" id="login-server" value="">
+          <div class="form-group">
+            <label for="login-email">Email</label>
+            <input id="login-email" type="email" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="you@example.com">
+          </div>
+          <div class="form-group">
+            <label for="login-password">Пароль</label>
+            <input id="login-password" type="password" autocomplete="current-password" placeholder="••••••">
+          </div>
+          <button type="button" class="auth-link-btn" id="btn-forgot-password">Забыли пароль?</button>
+          <p id="login-error" style="color:#ef4444;font-size:0.9rem;min-height:1.4em;margin-bottom:8px;font-weight:500"></p>
+          <button type="submit" class="btn-primary" id="login-submit">Войти</button>
+          <button type="button" class="btn-secondary" id="btn-goto-register" style="width:100%;margin-top:10px">Регистрация</button>
+        </form>
+      </div>
+    </section>
+
+    <section id="screen-forgot-password" class="screen">
+      <div class="scroll-body scroll-body-auth">
+        <div class="login-logo">
+          <h2>Восстановление пароля</h2>
+          <p>Код придёт на вашу почту</p>
+        </div>
+        <form id="forgot-form" action="#" method="post" novalidate>
+          <p style="font-size:0.8rem;color:var(--muted);margin-bottom:12px">Проверьте папку <strong>«Спам»</strong> — письмо от <strong>sec-work@visural.ru</strong>.</p>
+          <div class="form-group">
+            <label for="forgot-email">Email</label>
+            <input id="forgot-email" type="email" autocomplete="username" autocapitalize="none" placeholder="you@example.com">
+          </div>
+          <div class="form-group hidden" id="forgot-verify-block">
+            <label for="forgot-code">Код из письма</label>
+            <input id="forgot-code" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="000000">
+            <label for="forgot-password" style="margin-top:12px;display:block">Новый пароль (мин. 6 символов)</label>
+            <input id="forgot-password" type="password" autocomplete="new-password" placeholder="Новый пароль">
+          </div>
+          <p id="forgot-hint" class="notify-quiet" style="font-size:0.8rem;color:var(--muted);margin-bottom:8px"></p>
+          <p id="forgot-error" style="color:#ef4444;font-size:0.9rem;min-height:1.4em;margin-bottom:8px"></p>
+          <button type="submit" class="btn-primary" id="forgot-submit">Получить код</button>
+          <button type="button" class="btn-secondary" id="forgot-back" style="width:100%;margin-top:10px">← К входу</button>
+        </form>
+      </div>
+    </section>
+
+    <section id="screen-register" class="screen">
+      <div class="scroll-body scroll-body-auth">
+        <div class="login-logo">
+          <h2>Регистрация</h2>
+          <p>Новый аккаунт — после проверки администратором</p>
+        </div>
+        <form id="register-form" onsubmit="window.vcRegister(); return false;">
+          <p style="font-size:0.8rem;color:var(--muted);margin-bottom:12px">На вашу почту придёт код подтверждения. Проверьте папку <strong>«Спам»</strong> — письмо от <strong>sec-work@visural.ru</strong>.</p>
+          <div class="form-group">
+            <label for="register-name">ФИО</label>
+            <input id="register-name" type="text" autocomplete="name" placeholder="Иван Иванов">
+          </div>
+          <div class="form-group company-picker-wrap">
+            <label for="register-company">Организация</label>
+            <input id="register-company" type="text" autocomplete="off" placeholder="Начните вводить название…">
+            <div id="register-company-suggest" class="company-suggest hidden" role="listbox" aria-label="Организации"></div>
+            <p id="register-company-hint" class="company-suggest-hint hidden"></p>
+          </div>
+          <div class="form-group">
+            <label for="register-job-title">Должность</label>
+            <input id="register-job-title" type="text" list="job-title-options" autocomplete="organization-title" placeholder="Специалист службы охраны труда">
+            <datalist id="job-title-options">
+              <option value="Специалист службы охраны труда"></option>
+              <option value="Инженер по охране труда"></option>
+              <option value="Начальник отдела охраны труда"></option>
+              <option value="Аудитор"></option>
+            </datalist>
+          </div>
+          <div class="form-group">
+            <label for="register-phone">Телефон</label>
+            <input id="register-phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="+7 900 000-00-00">
+          </div>
+          <div class="form-group">
+            <label for="register-email">Email</label>
+            <input id="register-email" type="email" autocomplete="email" autocapitalize="none" placeholder="you@example.com">
+          </div>
+          <div class="form-group hidden" id="register-verify-block">
+            <label for="register-code">Код из письма</label>
+            <input id="register-code" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="000000">
+            <button type="button" class="btn-secondary" id="register-resend" style="width:100%;margin-top:10px">Получить код снова</button>
+            <label for="register-password" style="margin-top:12px;display:block">Пароль (мин. 6 символов)</label>
+            <input id="register-password" type="password" autocomplete="new-password" placeholder="Придумайте пароль">
+          </div>
+          <p id="register-hint" class="notify-quiet" style="font-size:0.8rem;color:var(--muted);margin-bottom:8px"></p>
+          <p id="register-error" style="color:#ef4444;font-size:0.9rem;min-height:1.4em;margin-bottom:8px"></p>
+          <button type="button" class="btn-primary" id="register-submit" onclick="window.vcRegister()">Получить код на почту</button>
+          <button type="button" class="btn-secondary" id="register-back" style="width:100%;margin-top:10px">← К входу</button>
+        </form>
+      </div>
+    </section>
+
+    <section id="screen-pending" class="screen">
+      <div class="scroll-body scroll-body-auth">
+        <div class="login-logo">
+          <h2>Ожидание подтверждения</h2>
+          <p>Ваша заявка отправлена администратору</p>
+        </div>
+        <div class="info-block" style="margin-top:8px">
+          <div class="info-row"><span>ФИО</span><span id="pending-name">—</span></div>
+          <div class="info-row"><span>Организация</span><span id="pending-company">—</span></div>
+          <div class="info-row"><span>Email</span><span id="pending-email">—</span></div>
+          <div class="info-row"><span>Телефон</span><span id="pending-phone">—</span></div>
+        </div>
+        <p id="pending-message" style="color:var(--muted);font-size:0.9rem;line-height:1.5;margin:16px 0">
+          После подтверждения вы сможете просматривать нарушения. Обычно это занимает до одного рабочего дня.
+        </p>
+        <button type="button" class="btn-secondary" id="btn-pending-refresh" style="width:100%;margin-bottom:10px">Проверить статус</button>
+        <button type="button" class="btn-secondary" id="btn-pending-logout" style="width:100%">Выйти</button>
+      </div>
+    </section>
+
+    <section id="screen-rejected" class="screen">
+      <div class="scroll-body scroll-body-auth">
+        <div class="login-logo">
+          <h2>Доступ не подтверждён</h2>
+          <p>Администратор отклонил заявку</p>
+        </div>
+        <p style="color:var(--muted);font-size:0.9rem;line-height:1.5;margin:16px 0">
+          Свяжитесь с администратором Visural Audit для уточнения.
+        </p>
+        <button type="button" class="btn-secondary" id="btn-rejected-logout" style="width:100%">Выйти</button>
+      </div>
+    </section>
+
+    <!-- Выбор режима для администратора -->
+    <section id="screen-role-choice" class="screen">
+      <div class="scroll-body" style="padding-top: 32px;">
+        <div class="login-logo">
+          <h2>Добро пожаловать</h2>
+          <p id="role-choice-greeting">—</p>
+        </div>
+        <div class="role-choice-grid">
+          <button type="button" id="btn-go-mobile" class="role-choice-card primary">
+            <span class="role-icon">📱</span>
+            <strong>Мобильное приложение</strong>
+            <span class="role-desc">Как аудитор: создавать и проверять нарушения</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Экран 2: Список нарушений -->
+    <section id="screen-list" class="screen">
+      <header class="header header-list">
+        <div id="user-avatar" class="avatar badge-dot" title="Профиль">VC</div>
+        <h1>Нарушения</h1>
+      </header>
+      <div class="scroll-body">
+        <div class="search-row">
+          <span class="search-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="11" cy="11" r="6"/><path d="M16 16l5 5"/></svg></span>
+          <input id="search-input" type="search" placeholder="Поиск по номеру, объекту…" autocomplete="off">
+        </div>
+        <div class="chips">
+          <button type="button" class="chip active" data-filter="all">Все</button>
+          <button type="button" class="chip" data-filter="critical" title="До срока менее 2 суток">Критические</button>
+          <button type="button" class="chip" data-filter="overdue">Просроченные</button>
+          <button type="button" class="chip" data-filter="in_progress">В работе</button>
+          <button type="button" class="chip" data-filter="resolved" id="chip-resolved">Выполнено</button>
+        </div>
+        <div id="violations-list"></div>
+      </div>
+      <button type="button" id="fab" class="fab hidden" aria-label="Новое нарушение">+</button>
+    </section>
+
+    <!-- Мастер создания -->
+    <section id="screen-wizard" class="screen">
+      <header class="header">
+        <button type="button" id="wizard-back" class="back-btn" aria-label="Назад">‹</button>
+        <h1 id="wizard-title">Создание</h1>
+      </header>
+      <div class="scroll-body">
+        <div id="wizard-progress" class="wizard-steps"></div>
+        <div id="wizard-guide" class="wizard-guide hidden" aria-live="polite"></div>
+        <div id="wizard-body"></div>
+        <div class="wizard-nav-row">
+          <button type="button" id="wizard-back-bottom" class="btn-secondary">← Назад</button>
+          <button type="button" id="wizard-next" class="btn-primary">Далее</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Детали нарушения -->
+    <section id="screen-detail" class="screen">
+      <header class="header header-detail">
+        <button type="button" id="detail-back" class="back-btn" aria-label="Назад">‹</button>
+        <div class="header-detail-body">
+          <h1 id="detail-title">№</h1>
+          <span id="detail-status" class="status-pill new">Открыто</span>
+        </div>
+      </header>
+      <div class="scroll-body" style="padding-bottom: 24px;">
+        <div id="detail-training-banner" class="training-ticket-banner hidden" role="note"></div>
+        <div id="detail-gallery" class="detail-gallery"></div>
+        <div class="info-block">
+          <h3>Информация</h3>
+          <div id="detail-info"></div>
+        </div>
+        <div class="info-block">
+          <h3>История</h3>
+          <div id="detail-timeline" class="timeline"></div>
+        </div>
+        <div class="info-block">
+          <h3>Комментарии</h3>
+          <div id="detail-comments" class="comments"></div>
+        </div>
+        <div class="action-bar" id="detail-actions"></div>
+      </div>
+    </section>
+
+    <!-- Аналитика -->
+    <section id="screen-analytics" class="screen">
+      <header class="header">
+        <h1>Аналитика</h1>
+      </header>
+      <div class="scroll-body">
+        <div id="analytics-kpi" class="kpi-grid"></div>
+        <div class="info-block">
+          <h3>По категориям</h3>
+          <div id="analytics-cats"></div>
+        </div>
+        <p id="analytics-admin-hint" class="analytics-hint hidden">
+          <span class="hint-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M12 10v6M12 7h.01"/></svg></span>
+          <span>Полные графики — в веб-панели администратора.</span>
+        </p>
+      </div>
+    </section>
+
+    <!-- Профиль -->
+    <section id="screen-profile" class="screen">
+      <header class="header">
+        <h1>Профиль</h1>
+      </header>
+      <div class="scroll-body">
+        <div class="profile-hero">
+          <div class="profile-hero-top">
+            <label class="avatar-upload-wrap" for="profile-avatar-input" title="Сменить фото">
+              <div id="profile-avatar" class="avatar avatar-lg">VC</div>
+              <span class="avatar-upload-hint">Сменить фото</span>
+            </label>
+            <input type="file" id="profile-avatar-input" accept="image/jpeg,image/png,image/webp" class="hidden">
+            <div class="profile-hero-main">
+              <div class="profile-head">
+                <h2 id="profile-name" class="profile-name-stack">
+                  <span id="profile-name-line1">—</span>
+                  <span id="profile-name-line2" class="hidden"></span>
+                  <span id="profile-name-line3" class="hidden"></span>
+                </h2>
+              </div>
+              <p id="profile-role" class="profile-role">—</p>
+            </div>
+            <button type="button" id="goto-profile-edit" class="profile-edit-btn" title="Редактировать профиль" aria-label="Редактировать профиль">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M4 18h4l9.5-9.5a2.1 2.1 0 0 0-3-3L5 15v3Z"/><path d="M13.5 6.5l3 3"/></svg>
+            </button>
+          </div>
+          <dl class="profile-details">
+            <div class="profile-detail-row">
+              <dt>Email</dt>
+              <dd id="profile-email">—</dd>
+            </div>
+            <div class="profile-detail-row">
+              <dt>Организация</dt>
+              <dd id="profile-company">—</dd>
+            </div>
+            <div class="profile-detail-row" id="profile-job-title-row">
+              <dt>Должность</dt>
+              <dd id="profile-job-title">—</dd>
+            </div>
+            <div class="profile-detail-row" id="profile-phone-row">
+              <dt>Телефон</dt>
+              <dd id="profile-phone">—</dd>
+            </div>
+          </dl>
+        </div>
+        <p class="section-label">Оформление</p>
+        <div class="info-block appearance-block">
+          <p class="appearance-title">Тема интерфейса</p>
+          <p class="appearance-hint">По умолчанию — как в настройках телефона. Ниже — вручную.</p>
+          <div class="theme-toggle">
+            <button type="button" data-theme-btn="dark">
+              <span class="theme-btn-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4 7 7 0 1 0 20 14.5Z"/></svg></span>
+              <span>Тёмная</span>
+            </button>
+            <button type="button" data-theme-btn="light">
+              <span class="theme-btn-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></span>
+              <span>Светлая</span>
+            </button>
+          </div>
+        </div>
+        <div class="info-block">
+          <h3>Настройки</h3>
+          <button type="button" class="settings-link" id="goto-help">
+            <span class="settings-link-main">
+              <span class="settings-link-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M12 10v6M12 7h.01"/></svg></span>
+              <span>Справка и обучение</span>
+            </span>
+            <span class="settings-link-chevron" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 6l6 6-6 6"/></svg></span>
+          </button>
+          <button type="button" class="settings-link" id="goto-settings-objects">
+            <span class="settings-link-main">
+              <span class="settings-link-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 11 12 4l8 7"/><path d="M6 10v10h12V10"/></svg></span>
+              <span>Объекты строительства</span>
+            </span>
+            <span class="settings-link-chevron" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 6l6 6-6 6"/></svg></span>
+          </button>
+          <button type="button" class="settings-link" id="goto-settings-contractors">
+            <span class="settings-link-main">
+              <span class="settings-link-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="4" y="8" width="16" height="13" rx="1"/><path d="M8 8V5h8v3"/></svg></span>
+              <span>Организации</span>
+            </span>
+            <span class="settings-link-chevron" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 6l6 6-6 6"/></svg></span>
+          </button>
+          <button type="button" class="settings-link" id="goto-notification-settings">
+            <span class="settings-link-main">
+              <span class="settings-link-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3a5 5 0 0 0-5 5v4l-2 3h14l-2-3V8a5 5 0 0 0-5-5Z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg></span>
+              <span>Настройки уведомлений</span>
+            </span>
+            <span class="settings-link-chevron" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 6l6 6-6 6"/></svg></span>
+          </button>
+        </div>
+        <div class="info-block">
+          <h3>Лента уведомлений</h3>
+          <div id="notifications-feed"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="screen-help" class="screen">
+      <header class="header">
+        <button type="button" id="help-back" class="back-btn" aria-label="Назад">‹</button>
+        <h1>Справка</h1>
+      </header>
+      <div class="scroll-body" id="help-body"></div>
+    </section>
+
+    <section id="screen-profile-edit" class="screen">
+      <header class="header">
+        <button type="button" id="profile-edit-back" class="back-btn" aria-label="Назад">‹</button>
+        <h1>Профиль</h1>
+      </header>
+      <div class="scroll-body" style="padding-bottom:24px">
+        <div class="info-block inline-form">
+          <p style="font-size:0.85rem;color:var(--muted);margin-bottom:12px">Исправьте данные, если при регистрации была ошибка. Роль и email меняет администратор.</p>
+          <div class="form-group">
+            <label for="profile-edit-name">ФИО</label>
+            <input id="profile-edit-name" type="text" autocomplete="name" placeholder="Иван Иванов">
+          </div>
+          <div class="form-group company-picker-wrap">
+            <label for="profile-edit-company">Организация</label>
+            <input id="profile-edit-company" type="text" autocomplete="off" placeholder="Начните вводить название…">
+            <div id="profile-edit-company-suggest" class="company-suggest hidden" role="listbox" aria-label="Организации"></div>
+            <p id="profile-edit-company-hint" class="company-suggest-hint hidden"></p>
+          </div>
+          <div class="form-group">
+            <label for="profile-edit-job-title">Должность</label>
+            <input id="profile-edit-job-title" type="text" list="job-title-options" autocomplete="organization-title" placeholder="Специалист службы охраны труда">
+          </div>
+          <div class="form-group">
+            <label for="profile-edit-phone">Телефон</label>
+            <input id="profile-edit-phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="+7 900 000-00-00">
+          </div>
+          <div class="form-group">
+            <label for="profile-edit-email">Email</label>
+            <input id="profile-edit-email" type="email" disabled style="opacity:0.7">
+          </div>
+          <p id="profile-edit-error" style="color:#ef4444;font-size:0.9rem;min-height:1.4em;margin-bottom:8px"></p>
+          <button type="button" class="btn-primary" id="profile-edit-save" style="width:100%">Сохранить</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="screen-notification-settings" class="screen">
+      <header class="header">
+        <button type="button" id="notification-settings-back" class="back-btn" aria-label="Назад">‹</button>
+        <h1>Уведомления</h1>
+      </header>
+      <div class="scroll-body" style="padding-bottom:24px">
+        <div id="notification-settings-body" class="notify-settings"></div>
+      </div>
+    </section>
+
+    <section id="screen-settings-objects" class="screen">
+      <header class="header">
+        <button type="button" id="settings-objects-back" class="back-btn" aria-label="Назад">‹</button>
+        <h1>Объекты</h1>
+      </header>
+      <div class="scroll-body" style="padding-bottom:24px">
+        <div id="objects-list" class="dir-list"></div>
+        <div class="info-block inline-form">
+          <h3>Добавить объект</h3>
+          <div class="form-group">
+            <input id="new-object-name" type="text" placeholder="Название, напр. ЖК «Северный»">
+          </div>
+          <div class="row">
+            <input id="new-object-code" type="text" placeholder="Код (SEV-3)" maxlength="12">
+            <input id="new-object-address" type="text" placeholder="Адрес">
+          </div>
+          <button type="button" id="btn-add-object" class="btn-sm" style="width:100%">Добавить</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="screen-settings-contractors" class="screen">
+      <header class="header">
+        <button type="button" id="settings-contractors-back" class="back-btn" aria-label="Назад">‹</button>
+        <h1>Организации</h1>
+      </header>
+      <div class="scroll-body" style="padding-bottom:24px">
+        <div id="contractors-list" class="dir-list"></div>
+        <p style="color:var(--muted);font-size:0.82rem;margin:0 0 12px;line-height:1.4">Список общий с админ-панелью — название, ИНН и прочие данные компании синхронизируются через сервер.</p>
+        <div class="info-block inline-form">
+          <h3 id="contractor-form-title">Добавить организацию</h3>
+          <div class="form-group">
+            <label for="new-contractor-name" class="form-label-sm">Название компании</label>
+            <input id="new-contractor-name" type="text" placeholder="ООО «Строй» или ИП Иванов">
+          </div>
+          <div class="form-group">
+            <label for="new-contractor-inn" class="form-label-sm">ИНН</label>
+            <input id="new-contractor-inn" type="text" placeholder="Необязательно">
+          </div>
+          <div class="form-group">
+            <label for="new-contractor-email" class="form-label-sm">Email организации</label>
+            <input id="new-contractor-email" type="email" placeholder="email@company.ru">
+          </div>
+          <div class="form-group">
+            <label for="new-contractor-executor" class="form-label-sm">Исполнитель (контактное лицо)</label>
+            <input id="new-contractor-executor" type="text" list="executors-datalist" placeholder="ФИО" autocomplete="off">
+            <datalist id="executors-datalist"></datalist>
+          </div>
+          <div class="contractor-form-actions">
+            <button type="button" id="btn-cancel-contractor" class="btn-sm btn-outline hidden" style="flex:1">Отмена</button>
+            <button type="button" id="btn-add-contractor" class="btn-sm" style="flex:2">Добавить</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <nav class="bottom-nav hidden" aria-label="Основная навигация">
+      <button type="button" class="nav-item active" data-screen="list">
+        <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="7" y="4" width="10" height="17" rx="2"/><path d="M9 4.5h6a2 2 0 0 1 2 2v1H7v-1a2 2 0 0 1 2-2Z"/><path d="M9 11h6M9 15h4"/></svg></span>
+        <span>Нарушения</span>
+      </button>
+      <button type="button" class="nav-item" data-screen="analytics">
+        <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span>
+        <span>Аналитика</span>
+      </button>
+      <button type="button" class="nav-item" data-screen="profile">
+        <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="8" r="3.5"/><path d="M5 20a7 7 0 0 1 14 0"/></svg></span>
+        <span>Профиль</span>
+      </button>
+    </nav>
+  </div>
+
+  <div id="report-modal" class="modal-overlay" aria-hidden="true">
+    <div class="modal-sheet" role="dialog" aria-labelledby="report-modal-title">
+      <h3 id="report-modal-title">Отчёт об устранении</h3>
+      <p id="report-training-note" class="modal-training-note hidden" role="note"><strong>Учебный режим</strong> Отчёт сохранится только в приложении. Письма и уведомления никому не уходят.</p>
+      <p id="report-modal-hint" style="color:var(--muted);font-size:0.85rem;margin:-8px 0 12px">Опишите выполненные работы и приложите фото (по желанию).</p>
+      <div id="report-text-wrap">
+        <textarea id="report-text" rows="4" placeholder="Что исправлено…" style="width:100%;padding:12px;border-radius:10px;border:1px solid var(--surface2);background:var(--bg);color:var(--text);font-family:inherit;margin-bottom:12px"></textarea>
+      </div>
+      <div class="media-grid" id="report-media-grid"></div>
+      <label class="media-add" for="report-file" style="margin-top:8px;display:inline-flex">+ Фото</label>
+      <input type="file" id="report-file" class="media-file-input" accept="image/*" multiple>
+      <div style="display:flex;gap:10px;margin-top:16px">
+        <button type="button" id="report-cancel" class="btn-secondary" style="flex:1">Отмена</button>
+        <button type="button" id="report-submit" class="btn-primary" style="flex:1">Отправить</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="comment-modal" class="modal-overlay vc-modal-pop" aria-hidden="true">
+    <div class="modal-sheet vc-sheet-pop" role="dialog" aria-labelledby="comment-modal-title">
+      <h3 id="comment-modal-title">Комментарий</h3>
+      <p id="comment-training-note" class="modal-training-note hidden" role="note"><strong>Учебный режим</strong> Комментарий никуда не отправится — только тренировка.</p>
+      <p style="color:var(--muted);font-size:0.85rem;margin:-8px 0 12px">Опишите план действий или уточнения по нарушению.</p>
+      <textarea id="comment-text" rows="4" placeholder="Ваш комментарий…" style="width:100%;padding:12px;border-radius:10px;border:1px solid var(--surface2);background:var(--bg);color:var(--text);font-family:inherit;margin-bottom:12px"></textarea>
+      <div style="display:flex;gap:10px;margin-top:4px">
+        <button type="button" id="comment-cancel" class="btn-secondary" style="flex:1">Отмена</button>
+        <button type="button" id="comment-submit" class="btn-primary" style="flex:1">Отправить</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="status-modal" class="modal-overlay vc-modal-pop" aria-hidden="true">
+    <div class="modal-sheet vc-sheet-pop" role="dialog" aria-labelledby="status-modal-title">
+      <h3 id="status-modal-title">Изменить статус</h3>
+      <p id="status-modal-current" style="color:var(--muted);font-size:0.85rem;margin:-4px 0 12px"></p>
+      <div id="status-pick-list" class="picker-list"></div>
+      <div style="display:flex;gap:10px;margin-top:16px">
+        <button type="button" id="status-cancel" class="btn-secondary" style="flex:1">Отмена</button>
+        <button type="button" id="status-submit" class="btn-primary" style="flex:1">Сохранить</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="onboarding-overlay" class="onboarding hidden" aria-hidden="true">
+    <div class="onboarding-backdrop"></div>
+    <div class="onboarding-spotlight hidden"></div>
+    <div class="onboarding-burst-lane onboarding-burst-lane--left" id="onboarding-burst-left" aria-hidden="true"></div>
+    <div class="onboarding-burst-lane onboarding-burst-lane--right" id="onboarding-burst-right" aria-hidden="true"></div>
+    <div class="onboarding-card" role="dialog" aria-modal="true" aria-labelledby="onboarding-title">
+      <p class="onboarding-progress" id="onboarding-progress"></p>
+      <h3 class="onboarding-title" id="onboarding-title"></h3>
+      <p class="onboarding-text" id="onboarding-text"></p>
+      <div class="onboarding-actions">
+        <button type="button" id="onboarding-skip" class="btn-secondary onboarding-skip-btn">Пропустить обучение</button>
+        <button type="button" id="onboarding-skip-step" class="btn-secondary onboarding-skip-step-btn hidden">Пропустить шаг</button>
+        <button type="button" id="onboarding-next" class="btn-primary hidden">Понятно</button>
+      </div>
+    </div>
+    <div class="onboarding-hit-area hidden" aria-hidden="true"></div>
+  </div>
+
+  <div id="confetti-root" aria-hidden="true"></div>
+  <div id="training-celebration" class="training-celebration hidden" aria-hidden="true">
+    <div class="vc-celebration-bursts" aria-hidden="true">
+      <div class="vc-burst-lane vc-burst-lane--left" id="celebration-burst-left"></div>
+      <div class="vc-burst-lane vc-burst-lane--right" id="celebration-burst-right"></div>
+    </div>
+    <div class="training-celebration-card" role="dialog" aria-modal="true">
+      <h2 class="training-celebration-title">Поздравляем!</h2>
+      <p class="training-celebration-text">Вы успешно прошли обучение. Учебные тикеты удалены — можно начинать работу.</p>
+      <button type="button" id="training-celebration-ok" class="btn-primary">Отлично!</button>
+    </div>
+  </div>
+
+  <script src="js/icons.js?v=3"></script>
+  <script src="js/theme.js?v=19"></script>
+  <script src="js/data.js?v=20"></script>
+  <script src="js/email-preview.js?v=17"></script>
+  <script src="js/version.js?v=17"></script>
+  <script src="js/api.js?v=29"></script>
+  <script src="js/native-bridge.js?v=17"></script>
+  <script src="js/login.js?v=21"></script>
+  <script src="js/push-notify.js?v=2"></script>
+  <script src="js/onboarding.js?v=19"></script>
+  <script src="js/app.js?v=74"></script>
+</body>
+</html>

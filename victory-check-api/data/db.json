@@ -1,0 +1,261 @@
+{
+  "notifications": [
+    {
+      "message": "Зафиксировано нарушение DEMO-1/2026/00001",
+      "read": true,
+      "id": "n-1",
+      "type": "violation",
+      "createdAt": "2026-11-01T10:00:01.000Z",
+      "violationId": "v-demo-1",
+      "title": "Новое нарушение",
+      "isRead": true,
+      "channel": "inapp",
+      "body": "Работники на высоте без касок",
+      "userId": "demo-admin-001",
+      "at": "2026-11-01T10:00:01.000Z"
+    }
+  ],
+  "seq": {
+    "violation": 3
+  },
+  "telegramChats": [],
+  "users": [
+    {
+      "id": "demo-admin-001",
+      "contractorId": null,
+      "firstName": "Админ",
+      "lastName": "Демо",
+      "objectIds": [
+        "obj-1",
+        "obj-2"
+      ],
+      "role": "admin",
+      "passwordHash": "$argon2id$v=19$m=19456,t=3,p=1$4NBMkIB2GFkWkxK78oloRw$Iv9wOtAu6co5SMwdyq7dRG1sJoBHhPoiIU0gEt4lxmg",
+      "company": "ООО «Демо Строй»",
+      "notifyEmail": "admin@demo.local",
+      "email": "admin@demo.local",
+      "status": "active",
+      "tutorialCompleted": true
+    },
+    {
+      "id": "demo-insp-001",
+      "contractorId": null,
+      "firstName": "Иван",
+      "lastName": "Проверкин",
+      "objectIds": [
+        "obj-1"
+      ],
+      "role": "inspector",
+      "passwordHash": "$argon2id$v=19$m=19456,t=3,p=1$AfsSi0hV1/QURRBZgSElbA$8Qu3fcbbSUum4SCUGo5PWfOTG42H7Q/WKdM+qqeGnZI",
+      "company": "ООО «Демо Строй»",
+      "notifyEmail": "inspector@demo.local",
+      "email": "inspector@demo.local",
+      "status": "active"
+    }
+  ],
+  "passwordResetPending": {},
+  "violations": [
+    {
+      "id": "v-demo-1",
+      "objectId": "obj-1",
+      "severity": "major",
+      "responsibleUserId": null,
+      "normRefs": [
+        "Правила по охране труда"
+      ],
+      "createdAt": "2026-11-01T10:00:00.000Z",
+      "description": "Работники на высоте без касок и страховочных поясов.",
+      "media": [],
+      "createdByUserId": "demo-insp-001",
+      "prescriptionNumber": "00001",
+      "categoryId": "ppe",
+      "history": [
+        {
+          "by": "Иван Проверкин",
+          "text": "Нарушение создано",
+          "at": "2026-11-01T10:00:00.000Z"
+        }
+      ],
+      "responsible": "Петров П.П.",
+      "contractorId": "c-1",
+      "createdByName": "Иван Проверкин",
+      "deadline": "2026-12-01T12:00:00.000Z",
+      "comments": [],
+      "status": "open",
+      "number": "DEMO-1/2026/00001",
+      "locationGps": null,
+      "reportMedia": []
+    },
+    {
+      "id": "v-demo-2",
+      "objectId": "obj-1",
+      "severity": "minor",
+      "responsibleUserId": null,
+      "normRefs": [],
+      "createdAt": "2026-11-02T09:00:00.000Z",
+      "description": "Отсутствует огнетушитель на этаже монтажных работ.",
+      "media": [],
+      "createdByUserId": "demo-insp-001",
+      "prescriptionNumber": "00002",
+      "categoryId": "fire",
+      "history": [
+        {
+          "by": "Иван Проверкин",
+          "text": "Нарушение создано",
+          "at": "2026-11-02T09:00:00.000Z"
+        }
+      ],
+      "responsible": "Сидоров С.С.",
+      "contractorId": "c-2",
+      "createdByName": "Иван Проверкин",
+      "deadline": "2026-11-20T12:00:00.000Z",
+      "comments": [],
+      "status": "in_progress",
+      "number": "DEMO-1/2026/00002",
+      "locationGps": null,
+      "reportMedia": []
+    },
+    {
+      "id": "v-demo-3",
+      "objectId": "obj-2",
+      "severity": "critical",
+      "responsibleUserId": null,
+      "normRefs": [
+        "ПТЭЭП"
+      ],
+      "createdAt": "2026-10-28T14:00:00.000Z",
+      "description": "Открытый электрощит без ограждения в зоне прохода.",
+      "media": [],
+      "createdByUserId": "demo-admin-001",
+      "prescriptionNumber": "00003",
+      "categoryId": "electro",
+      "history": [
+        {
+          "by": "Админ Демо",
+          "text": "Нарушение создано",
+          "at": "2026-10-28T14:00:00.000Z"
+        },
+        {
+          "by": "Петров П.П.",
+          "text": "Устранено",
+          "at": "2026-11-01T11:00:00.000Z"
+        }
+      ],
+      "responsible": "Петров П.П.",
+      "contractorId": "c-1",
+      "createdByName": "Админ Демо",
+      "deadline": "2026-11-05T12:00:00.000Z",
+      "comments": [],
+      "status": "resolved",
+      "number": "DEMO-2/2026/00003",
+      "locationGps": null,
+      "reportMedia": []
+    }
+  ],
+  "sessions": [
+    {
+      "token": "dc0528356485f256b3917f7784ae5724166d25675a2f3691",
+      "userId": "demo-admin-001",
+      "expiresAt": 1796317974699
+    },
+    {
+      "token": "0770f8d9f9b70f5c03f524c8a26d927a05bbc3e5616c76cd",
+      "userId": "demo-admin-001",
+      "expiresAt": 1796318009484
+    },
+    {
+      "token": "415d6ae4255d85ab869de4ad5d6af8ba8a25891a3ce2bc9e",
+      "userId": "demo-admin-001",
+      "expiresAt": 1796318255832
+    }
+  ],
+  "registrationPending": {},
+  "objects": [
+    {
+      "code": "DEMO-1",
+      "name": "ЖК «Демо Парк», корпус 1",
+      "id": "obj-1",
+      "address": "г. Демо, ул. Строительная, 1"
+    },
+    {
+      "code": "DEMO-2",
+      "name": "Офисный центр «Север»",
+      "id": "obj-2",
+      "address": "г. Демо, пр. Примерный, 10"
+    }
+  ],
+  "contractors": [
+    {
+      "id": "c-1",
+      "name": "ООО «Подряд Демо»",
+      "email": "podryad@demo.local",
+      "type": "подрядчик",
+      "inn": "0000000000",
+      "executor": "Петров П.П."
+    },
+    {
+      "id": "c-2",
+      "name": "ООО «Монтаж Плюс»",
+      "email": "montazh@demo.local",
+      "type": "подрядчик",
+      "inn": "1111111111",
+      "executor": "Сидоров С.С."
+    }
+  ],
+  "categories": [
+    {
+      "id": "ppe",
+      "name": "СИЗ",
+      "icon": "ic-goggles",
+      "sortOrder": 1
+    },
+    {
+      "id": "electro",
+      "name": "Электробезопасность",
+      "icon": "ic-bolt",
+      "sortOrder": 2
+    },
+    {
+      "id": "height",
+      "name": "Работа на высоте",
+      "icon": "ic-ladder",
+      "sortOrder": 3
+    },
+    {
+      "id": "fire",
+      "name": "Пожарная безопасность",
+      "icon": "ic-flame",
+      "sortOrder": 4
+    },
+    {
+      "id": "culture",
+      "name": "Культура безопасности",
+      "icon": "ic-culture",
+      "sortOrder": 5
+    },
+    {
+      "id": "load",
+      "name": "Грузы / складирование",
+      "icon": "ic-load",
+      "sortOrder": 6
+    },
+    {
+      "id": "doc",
+      "name": "Документы",
+      "icon": "ic-doc",
+      "sortOrder": 7
+    },
+    {
+      "id": "machinery",
+      "name": "Машины / механизмы",
+      "icon": "ic-crane",
+      "sortOrder": 8
+    },
+    {
+      "id": "other",
+      "name": "Прочие нарушения",
+      "icon": "ic-other",
+      "sortOrder": 99
+    }
+  ]
+}
