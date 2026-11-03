@@ -30,20 +30,20 @@
 4. **Подрядчик отвечает** — в карточке нарушения пишет отчёт об устранении и прикладывает фото «как стало».
 5. **Закрытие** — статус меняют на «устранено» (инспектор или админ), история и комментарии остаются в карточке.
 
-<p align="center">
-  <img src="docs/screenshots/12-mobile-create.png" alt="Создание акта" width="220" />
-  &nbsp;
-  <img src="docs/screenshots/06-mobile-photo.png" alt="Фото на объекте" width="220" />
-  &nbsp;
-  <img src="docs/screenshots/07-mobile-confirm.png" alt="Подтверждение и отправка" width="220" />
-</p>
-<p align="center">
-  <img src="docs/screenshots/08-mobile-detail.png" alt="Карточка с фиксацией" width="220" />
-  &nbsp;
-  <img src="docs/screenshots/09-mobile-actions.png" alt="Действия по акту" width="220" />
-  &nbsp;
-  <img src="docs/screenshots/10-mobile-report.png" alt="Отчёт об устранении" width="220" />
-</p>
+<p align="center"><strong>1. Создание акта</strong><br/>
+<img src="docs/screenshots/12-mobile-create.png" alt="Создание акта" width="260" /></p>
+
+<p align="center"><strong>2. Фото на объекте</strong><br/>
+<img src="docs/screenshots/06-mobile-photo.png" alt="Фото на объекте" width="260" /></p>
+
+<p align="center"><strong>3. Подтверждение и отправка</strong><br/>
+<img src="docs/screenshots/07-mobile-confirm.png" alt="Подтверждение" width="260" /></p>
+
+<p align="center"><strong>4. Карточка нарушения</strong><br/>
+<img src="docs/screenshots/08-mobile-detail.png" alt="Карточка" width="260" /></p>
+
+<p align="center"><strong>5. Отчёт об устранении</strong><br/>
+<img src="docs/screenshots/10-mobile-report.png" alt="Отчёт об устранении" width="260" /></p>
 
 ## Кто что может
 
@@ -74,11 +74,11 @@
 - комментарии, смена статуса, отправка акта подрядчику;
 - просмотр аналитики по доступным объектам.
 
-<p align="center">
-  <img src="docs/screenshots/05-mobile-list.png" alt="Лента нарушений" width="220" />
-  &nbsp;
-  <img src="docs/screenshots/11-mobile-analytics.png" alt="Аналитика в телефоне" width="220" />
-</p>
+<p align="center"><strong>Лента нарушений</strong><br/>
+<img src="docs/screenshots/05-mobile-list.png" alt="Лента нарушений" width="260" /></p>
+
+<p align="center"><strong>Аналитика</strong><br/>
+<img src="docs/screenshots/11-mobile-analytics.png" alt="Аналитика" width="260" /></p>
 
 ### Подрядчик (`contractor@demo.local`)
 
