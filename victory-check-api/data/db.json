@@ -30,7 +30,7 @@
         "obj-2"
       ],
       "role": "admin",
-      "passwordHash": "$argon2id$v=19$m=19456,t=3,p=1$hFNqQ0hc4FwJoLmXYTk9Gg$jN0W70nzOiYk2MJZUxBu1hzhM7Q1obGDU/ljflnJz7M",
+      "passwordHash": "$argon2id$v=19$m=19456,t=3,p=1$Z8NvN9nBWaJ+1IeXP8/uhQ$jkFM6XoENg12/r1saT4qzQe5NNn+xrDL+s3RNCfzDUQ",
       "company": "ООО «Демо Строй»",
       "notifyEmail": "admin@demo.local",
       "email": "admin@demo.local",
@@ -102,7 +102,7 @@
       "createdByName": "Иван Проверкин",
       "deadline": "2026-12-01T12:00:00.000Z",
       "comments": [],
-      "status": "open",
+      "status": "new",
       "number": "DEMO-1/2026/00001",
       "locationGps": null,
       "reportMedia": []
@@ -173,7 +173,13 @@
       "reportMedia": []
     }
   ],
-  "sessions": [],
+  "sessions": [
+    {
+      "token": "ebd4dc6838a0a4b64dfbaa1c8f263b8f02f1e3b2c49ccfdc",
+      "userId": "demo-insp-001",
+      "expiresAt": 1796321702730
+    }
+  ],
   "registrationPending": {},
   "objects": [
     {
